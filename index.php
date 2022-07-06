@@ -6,10 +6,15 @@ ini_set('display_startup_errors', 1);
 
 const USER = 'test'; //ввести актуальные данные
 const PASS = '*******'; //ввести актуальные данные
+const PORT = 5000;
 
-$ch = curl_init('195.208.146.48:5000/carddav/Synology/f21b8d78-5741-4f11-965b-e62f4c21e328');
+$url = '000.000.000.000/carddav/Synology/'; //ввести реальный IP
+$bookHash = 'f21b8d78-5741-4f11-965b-e62f4c21e328';
 
-curl_setopt($ch, CURLOPT_PORT, 5000);
+$ch = curl_init();
+
+curl_setopt($ch, CURLOPT_URL, $url . $bookHash);
+curl_setopt($ch, CURLOPT_PORT, PORT);
 curl_setopt($ch, CURLOPT_USERPWD, USER . ':' . PASS);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -24,7 +29,8 @@ if($http_code == 200 && $data) {
     preg_match_all($pattern, $data, $result);
     $result = array_unique($result[0]);
 
-    var_dump($data, $result, $http_code);
+    var_dump($result);
+
 } else {
     echo 'Данные или соединение отсутствуют';
 }
